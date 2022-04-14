@@ -1,7 +1,8 @@
 package br.edu.ifsul.testes;
 
-import br.edu.ifsul.modelo.Cidade;
 import br.edu.ifsul.modelo.Estado;
+import br.edu.ifsul.modelo.Pessoa;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,7 +13,7 @@ import javax.persistence.Persistence;
  * @email jorgebavaresco@ifsul.edu.br
  * @organization IFSUL - Campus Passo Fundo
  */
-public class TestePersistirCidade {
+public class TestePersistirPessoa {
 
     /**
      * @param args the command line arguments
@@ -20,24 +21,17 @@ public class TestePersistirCidade {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PW2022-1-ModelPU");
         EntityManager em = emf.createEntityManager();
-        Estado e = em.find(Estado.class, 1);
-        Cidade c = new Cidade();
-        c.setNome("Passo Fundo");
-        c.setEstado(e);
-        try {
-            em.getTransaction().begin();
-            em.persist(c);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            System.out.println("Erro: " + ex.getMessage());
-            if (em.getTransaction().isActive() != true) {
-                em.getTransaction().begin();
-            }
-            em.getTransaction().rollback();
-        }
+        Pessoa p = new Pessoa();
+        p.setNome("Jorge Bavaresco");
+        p.setNascimento(Calendar.getInstance());
+        p.setCpf("123.345.897-61");
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
         em.close();
         emf.close();
-
+        
+        
     }
 
 }
