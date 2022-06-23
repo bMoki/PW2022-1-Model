@@ -20,7 +20,9 @@ public class TesteListarEstado {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PW2022-1-ModelPU");
         EntityManager em = emf.createEntityManager();
-        List<Estado> lista = em.createQuery("from Estado order by id").getResultList();
+        List<Estado> lista = 
+                em.createQuery("from Estado where id = '8' order by id")
+                        .setFirstResult(10).setMaxResults(20).getResultList();        
         for (Estado e : lista) {
             System.out.println("ID: " + e.getId() + " Nome: " + e.getNome() + " UF: " 
                     + e.getUf());
